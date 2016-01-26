@@ -40,7 +40,7 @@
 
           // Particles
           particles = new THREE.Object3D(),
-          totalParticles = 30,
+          totalParticles = 1,
           maxParticleSize = -500,
           particleRotationSpeed = 0.1,
           particleRotationDeg = 0,
@@ -54,8 +54,13 @@
           currentCity = 0,
           currentCityText = new THREE.TextGeometry(),
           currentCityTextMesh = new THREE.Mesh();
-
+      addParticle();
       init();
+
+      
+      function addParticle() {
+        totalParticles = totalParticles + 1;
+      }
 
       function init() {
         scene = new THREE.Scene();
