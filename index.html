@@ -40,9 +40,9 @@
 
           // Particles
           particles = new THREE.Object3D(),
-          totalParticles = 200,
-          maxParticleSize = 200,
-          particleRotationSpeed = 0,
+          totalParticles = 30,
+          maxParticleSize = -500,
+          particleRotationSpeed = 0.1,
           particleRotationDeg = 0,
           lastColorRange = [0, 0.3],
           currentColorRange = [0, 0.3],
@@ -97,7 +97,7 @@
         window.addEventListener('deviceorientation', setOrientationControls, true);
 
         // Lighting
-        var light = new THREE.PointLight(0x999999, 2, 100);
+        var light = new THREE.PointLight(0x9999, 1, -500);
         light.position.set(50, 50, 50);
         scene.add(light);
 
@@ -125,7 +125,7 @@
         floor.rotation.x = -Math.PI / 2;
         scene.add(floor);
 
-        var particleTexture = THREE.ImageUtils.loadTexture('textures/particle.png'),
+        var particleTexture = THREE.ImageUtils.loadTexture('textures/psykedelisk-kule.png'),
             spriteMaterial = new THREE.SpriteMaterial({
             map: particleTexture,
             color: 0xffffff
