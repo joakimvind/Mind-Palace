@@ -42,9 +42,10 @@
 
           // Particles
           particles = new THREE.Object3D(),
+          userAddedParticles = 0,
           totalParticles = 1,
-          maxParticleSize = -1000,
-          particleRotationSpeed = 4,
+          maxParticleSize = 200,
+          particleRotationSpeed = 0.1,
           particleRotationDeg = 0,
           lastColorRange = [0, 0.3],
           currentColorRange = [0, 0.3],
@@ -61,12 +62,16 @@
 
       
       function addParticle() {
-        totalParticles = totalParticles + 1;
+        userAddedParticles = 1;
         console.log("this function was indeed activated, yes");
         initLite();
       }
       function initLite() {
-
+        //Gets the way the user is looking
+        var pLocal = new THREE.Vector3( 0, 0, -1 );
+        var pWorld = pLocal.applyMatrix4( camera.matrixWorld );
+        var dir = pWorld.sub( camera.position ).normalize();
+        
 
         var particleTexture = THREE.ImageUtils.loadTexture('textures/portal.png'),
             spriteMaterial = new THREE.SpriteMaterial({
@@ -74,23 +79,19 @@
             color: 0xffffff
           });
 
-        for (var i = 0; i < totalParticles; i++) {
+        for (var i = 0; i < userAddedParticles; i++) {
           var sprite = new THREE.Sprite(spriteMaterial);
 
-          sprite.scale.set(80, 80, 180);
-          sprite.position.set(0.3, 0.3, 0.5);
-          // Endre denne for å endre standard posisjonen, slik at den ikke blir random. 
-          sprite.position.setLength(4);
-
+          sprite.scale.set(64, 64, 1.0);
           
+          sprite.position.set(dir.x, dir.y, dir.z);
+          sprite.position.setLength(maxParticleSize * Math.random());
           
           particles.add(sprite);
         }
-        particles.position.y = camera.position.y * 10;
-        particles.position.x = camera.position.x + 150;
-        console.log(camera.position.z);
-        console.log(camera.position.x);
-        console.log(camera.position.y);
+        
+
+       
         scene.add(particles);
 
         adjustToWeatherConditions();
