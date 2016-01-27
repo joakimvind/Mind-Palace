@@ -44,7 +44,7 @@
           particles = new THREE.Object3D(),
           totalParticles = 1,
           maxParticleSize = 1000,
-          particleRotationSpeed = 0.1,
+          particleRotationSpeed = 0,
           particleRotationDeg = 0,
           lastColorRange = [0, 0.3],
           currentColorRange = [0, 0.3],
@@ -56,7 +56,7 @@
           currentCity = 0,
           currentCityText = new THREE.TextGeometry(),
           currentCityTextMesh = new THREE.Mesh();
-      init();
+          init();
 
       
       function addParticle() {
@@ -66,7 +66,7 @@
       }
       function initLite() {
 
-        var particleTexture = THREE.ImageUtils.loadTexture('textures/psykedelisk-kule.png'),
+        var particleTexture = THREE.ImageUtils.loadTexture('textures/portal.png'),
             spriteMaterial = new THREE.SpriteMaterial({
             map: particleTexture,
             color: 0xffffff
@@ -76,15 +76,17 @@
           var sprite = new THREE.Sprite(spriteMaterial);
 
           sprite.scale.set(64, 64, 1.0);
-          sprite.position.set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.75); // Endre denne for å endre standard posisjonen, slik at den ikke blir random. 
+          // Endre denne for å endre standard posisjonen, slik at den ikke blir random. 
           sprite.position.setLength(maxParticleSize * Math.random());
 
-          sprite.material.blending = THREE.AdditiveBlending;
+          
           
           particles.add(sprite);
         }
         particles.position.y = 70;
         console.log(camera.position.z);
+        console.log(camera.position.x);
+        console.log(camera.position.y);
         scene.add(particles);
 
         adjustToWeatherConditions();
@@ -161,7 +163,7 @@
         floor.rotation.x = -Math.PI / 2;
         scene.add(floor);
 
-        var particleTexture = THREE.ImageUtils.loadTexture('textures/psykedelisk-kule.png'),
+        var particleTexture = THREE.ImageUtils.loadTexture('textures/portal.png'),
             spriteMaterial = new THREE.SpriteMaterial({
             map: particleTexture,
             color: 0xffffff
